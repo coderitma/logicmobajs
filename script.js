@@ -20,7 +20,7 @@ class Hero {
 
 class Player extends Hero {
   move(direction) {}
-  attack(enemy) {
+  #attack(enemy) {
     let status = "attack"
     let winner = ""
     
@@ -46,6 +46,10 @@ class Player extends Hero {
     // damage-nya si player
     // kalo kaga.. maka:
     // enemy kalah!
+  }
+
+  attack2(enemy) {
+    return this.#attack(enemy)
   }
   attacked(enemy) {
     // cek apakah blood player saat ini masih memungkinkan
@@ -74,5 +78,5 @@ ling.damage = 75;
 ling.speed = 90;
 
 
-let attackResult = wanwan.attack(ling)
+let attackResult = wanwan.attack2(ling)
 console.table(attackResult);
