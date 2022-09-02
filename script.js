@@ -36,7 +36,7 @@ document.getElementById("proses").addEventListener("click", function () {
   let hasil = getStepAngsuran(totalAngsuran, persentase);
   let divData = document.getElementById("data");
   let template = [
-    '<table border="1">',  // 0
+    '<table class="table table-bordered">',  // 0
     `
     <tr>
       <th>Jumlah Angsuran</th>
