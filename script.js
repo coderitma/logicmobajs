@@ -1,5 +1,23 @@
 // jumlah bagian = persentase x jumlah keseluruhan
 //                  80%          40
+
+// let template = `
+//   <table border="1">
+//     <tr>
+//       <th>Jumlah Angsuran</th>
+//       <th>Progress</th>
+//       <th>Berjalan</th>
+//       <th>Sisa</th>
+//     <tr>
+//     <tr>
+//       <td>${hasil['jumlah angsuran']}</td>
+//       <td>${hasil['progress']}</td>
+//       <td>${hasil['berjalan']}</td>
+//       <td>${hasil['sisa']}</td>
+//     </tr>
+//   </table>
+//   `
+
 function getStepAngsuran(totalAngsuran, persentase) {
   let selesai = (persentase/100) * totalAngsuran
   return {
@@ -24,15 +42,17 @@ document.getElementById("proses").addEventListener("click", function () {
       <th>Progress</th>
       <th>Berjalan</th>
       <th>Sisa</th>
-    <tr>
-    <tr>
-      <td>${hasil['jumlah angsuran']}</td>
-      <td>${hasil['progress']}</td>
-      <td>${hasil['berjalan']}</td>
-      <td>${hasil['sisa']}</td>
     </tr>
-  </table>
+    <tr>
   `
+
+  Object.keys(hasil).forEach(key => {
+    console.log(key, hasil[key]);
+    template += `<td>${hasil[key]}</td>`;
+  });
+
+  template += '</tr></table>';
+  
   divData.innerHTML = template;
 })
 
