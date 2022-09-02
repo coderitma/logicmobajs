@@ -35,25 +35,27 @@ document.getElementById("proses").addEventListener("click", function () {
   
   let hasil = getStepAngsuran(totalAngsuran, persentase);
   let divData = document.getElementById("data");
-  let template = `
-  <table border="1">
+  let template = [
+    '<table border="1">',  // 0
+    `
     <tr>
       <th>Jumlah Angsuran</th>
       <th>Progress</th>
       <th>Berjalan</th>
       <th>Sisa</th>
     </tr>
-    <tr>
-  `
+  `]
+  
+  template.push("<tr>");
 
   Object.keys(hasil).forEach(key => {
     console.log(key, hasil[key]);
-    template += `<td>${hasil[key]}</td>`;
+    template.push(`<td>${hasil[key]}</td>`);
   });
 
-  template += '</tr></table>';
+  template.push('</tr></table>');
   
-  divData.innerHTML = template;
+  divData.innerHTML = template.join("");
 })
 
 
