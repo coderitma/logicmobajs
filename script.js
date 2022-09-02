@@ -1,82 +1,44 @@
-class Hero {
-  #nama;
-  constructor (nama) {
-    this.#nama = nama;
-    this.jenis = "";
-    this.skin = "";
-    this.blood = 0;
-    this.damage = 0;
-    this.speed = 0
-  }
-
-  set nama(nama) {
-    this.#nama = nama;
-  }
-
-  get nama() {
-    return this.#nama;
+// jumlah bagian = persentase x jumlah keseluruhan
+//                  80%          40
+function getStepAngsuran(totalAngsuran, persentase) {
+  let selesai = (persentase/100) * totalAngsuran
+  return {
+    "jumlah angsuran": totalAngsuran,
+    "progress": persentase + "%",
+    "berjalan": selesai + " bulan",
+    "sisa": (totalAngsuran - selesai) + " bulan"
   }
 }
 
-class Player extends Hero {
-  move(direction) {}
-  #attack(enemy) {
-    let status = "attack"
-    let winner = ""
-    
-    if (enemy.blood - this.damage > 0) {
-      enemy.blood = enemy.blood - this.damage
-    } else {
-      enemy.blood = 0;
-      winner = this.nama
-    }
 
-    return {
-      "status": status,
-      "attack_from": this.nama,
-      "damage": this.damage,
-      "received_by": enemy.nama,
-      "current_blood": enemy.blood,
-      "winner": winner
-    }
-    // cek apakah blood enemy saat ini masih memungkinakn 
-    // untuk dikurangi dengan damage player?
-    // kalo iya.. yaudah:
-    // enemny blood akan dikurangi dengan jumlah
-    // damage-nya si player
-    // kalo kaga.. maka:
-    // enemy kalah!
-  }
-
-  attack2(enemy) {
-    return this.#attack(enemy)
-  }
-  attacked(enemy) {
-    // cek apakah blood player saat ini masih memungkinkan
-    // untuk dikurangi dengan damage-nya?
-    // kalo iya.. maka:
-    // blood player akan dikurangi dengan jumlah
-    // damage-nya si enemy
-    // kalau tidak.. maka:
-    // player kalah!
-  }
-}
-
-const wanwan = new Player("wanwan")
-wanwan.jenis = "marksman"
-wanwan.skin = "pink"
-wanwan.blood = 100;
-wanwan.damage = 60;
-wanwan.speed = 90;
+document.getElementById("proses").addEventListener("click", function () {
+  let totalAngsuran = parseInt(document.getElementById("totalAngsuran").value)
+  let persentase = parseInt(document.getElementById("persentase").value)
+  
+  let hasil = getStepAngsuran(totalAngsuran, persentase);
+  let divData = document.getElementById("data");
+  let template = `
+  <table border="1">
+    <tr>
+      <th>Jumlah Angsuran</th>
+      <th>Progress</th>
+      <th>Berjalan</th>
+      <th>Sisa</th>
+    <tr>
+    <tr>
+      <td>${hasil['jumlah angsuran']}</td>
+      <td>${hasil['progress']}</td>
+      <td>${hasil['berjalan']}</td>
+      <td>${hasil['sisa']}</td>
+    </tr>
+  </table>
+  `
+  divData.innerHTML = template;
+})
 
 
-const ling = new Player("ling")
-ling.jenis = "assasin"
-ling.skin = "blue"
-ling.blood = 100;
-ling.damage = 75;
-ling.speed = 90;
-
-
-let attackResult = wanwan.attack2(ling)
-console.table(attackResult);
+document.getElementById("bersihin").addEventListener("click", function () {
+  document.getElementById("totalAngsuran").value = 0;
+  document.getElementById("persentase").value = 0;
+  document.getElementById("data").innerHTML = "Belum diproses!!!";
+})
